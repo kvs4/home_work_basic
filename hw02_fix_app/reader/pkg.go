@@ -2,7 +2,9 @@ package reader
 
 import (
 	"fmt"
+	
 	"io"
+	
 	"os"
 	
 	"encoding/json"
