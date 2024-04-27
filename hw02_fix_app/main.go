@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 
-	"github.com/kvs4/home_work_basic/tree/hw02_fix_app/printer"
-	"github.com/kvs4/home_work_basic/tree/hw02_fix_app/reader"
-	"github.com/kvs4/home_work_basic/tree/hw02_fix_app/types"
+	"github.com/kvs4/home_work_basic/hw02_fix_app/printer"
+	"github.com/kvs4/home_work_basic/hw02_fix_app/reader"
+	"github.com/kvs4/home_work_basic/hw02_fix_app/types"
 )
 
 func main() {
