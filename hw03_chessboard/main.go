@@ -5,9 +5,17 @@ import "fmt"
 func main() {
 	var numberLineX, numberLineY int
 	fmt.Print("Write the number of horizontal lines: ")
-	fmt.Scan(&numberLineX)
+	_, err := fmt.Scan(&numberLineX)
+	if err != nil {
+		fmt.Println("scanning error")
+		return
+	}
 	fmt.Print("Write the number of vertical lines: ")
-	fmt.Scan(&numberLineY)
+	_, err = fmt.Scan(&numberLineY)
+	if err != nil {
+		fmt.Println("scanning error")
+		return
+	}
 
 	for i := 0; i < numberLineY; i++ {
 		lineX := ""
