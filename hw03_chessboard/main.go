@@ -3,8 +3,11 @@ package main
 import "fmt"
 
 func main() {
-	numberLineX := 8
-	numberLineY := 8
+	var numberLineX, numberLineY int
+	fmt.Print("Write the number of horizontal lines: ")
+	fmt.Scan(&numberLineX)
+	fmt.Print("Write the number of vertical lines: ")
+	fmt.Scan(&numberLineY)
 
 	for i := 0; i < numberLineY; i++ {
 		lineX := ""
