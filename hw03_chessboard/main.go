@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func main() {
 	var numberLineX, numberLineY int
@@ -18,7 +21,7 @@ func main() {
 	}
 
 	for i := 0; i < numberLineY; i++ {
-		lineX := ""
+		var lineX strings.Builder
 		evenUnEven := 0
 		if i%2 == 0 {
 			evenUnEven = 0
@@ -27,11 +30,11 @@ func main() {
 		}
 		for j := 0; j < numberLineX; j++ {
 			if j%2 == evenUnEven {
-				lineX += " "
+				lineX.WriteString(" ")
 			} else {
-				lineX += "#"
+				lineX.WriteString("#")
 			}
 		}
-		fmt.Println(lineX)
+		fmt.Println(lineX.String())
 	}
 }
