@@ -101,6 +101,7 @@ func main() {
 	mybook1.SetRate(5.1)
 
 	fmt.Println(mybook1)
+	fmt.Println("mybook1, title:", mybook1.title)
 
 	mybook2 := Book{}
 	mybook2.SetID(2)
@@ -111,12 +112,12 @@ func main() {
 	mybook2.SetRate(4.9)
 
 	fmt.Println(mybook2)
+	fmt.Println("mybook2, title:", mybook2.title)
 
 	c1 := NewComparator(Year)
-	fmt.Println(c1)
 	c2 := NewComparator(Size)
 	c3 := NewComparator(Rate)
-	fmt.Println(`CompareBook "year":`, c1.Compare(&mybook1, &mybook2))
-	fmt.Println(`CompareBook "size":`, c2.Compare(&mybook1, &mybook2))
-	fmt.Println(`CompareBook "rate":`, c3.Compare(&mybook1, &mybook2))
+	fmt.Println(`Compare book by field "year":`, c1.Compare(&mybook1, &mybook2))
+	fmt.Println(`Compare book by field "size":`, c2.Compare(&mybook1, &mybook2))
+	fmt.Println(`Compare book by field "rate":`, c3.Compare(&mybook1, &mybook2))
 }
