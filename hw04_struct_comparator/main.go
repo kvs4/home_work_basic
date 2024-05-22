@@ -2,6 +2,14 @@ package main
 
 import "fmt"
 
+type fieldBook int
+
+const (
+	Year fieldBook = iota
+	Size
+	Rate
+)
+
 type Book struct {
 	id     int
 	title  string
@@ -11,36 +19,73 @@ type Book struct {
 	rate   float32
 }
 
-func (b *Book) SetFields(id int, title string, author string, year int, size float32, rate float32) {
+func (b Book) ID() int {
+	return b.id
+}
+
+func (b Book) Title() string {
+	return b.title
+}
+
+func (b Book) Author() string {
+	return b.author
+}
+
+func (b Book) Year() int {
+	return b.year
+}
+
+func (b Book) Size() float32 {
+	return b.size
+}
+
+func (b Book) Rate() float32 {
+	return b.rate
+}
+
+func (b *Book) SetID(id int) {
 	b.id = id
+}
+
+func (b *Book) SetTitle(title string) {
 	b.title = title
+}
+
+func (b *Book) SetAuthor(author string) {
 	b.author = author
+}
+
+func (b *Book) SetYear(year int) {
 	b.year = year
+}
+
+func (b *Book) SetSize(size float32) {
 	b.size = size
+}
+
+func (b *Book) SetRate(rate float32) {
 	b.rate = rate
 }
 
-func (b Book) ReadFields() string {
-	return fmt.Sprintf("Book ID: %d; Title: %s; Author: %s; Year: %d; Size: %v; Rate: %v",
-		b.id, b.title, b.author, b.year, b.size, b.rate)
+type Comparator struct {
+	fieldCompare fieldBook
 }
 
-type CompareBook struct {
-	enum  string
-	book1 Book
-	book2 Book
+func NewComparator(fieldCompare fieldBook) *Comparator {
+	c := Comparator{fieldCompare}
+	return &c
 }
 
-func (cs CompareBook) Compare() bool {
+func (c Comparator) Compare(bookOne, bookTwo *Book) bool {
 	var result bool
 
-	switch cs.enum {
-	case "year":
-		result = cs.book1.year > cs.book2.year
-	case "size":
-		result = cs.book1.size > cs.book2.size
-	case "rate":
-		result = cs.book1.rate > cs.book2.rate
+	switch c.fieldCompare {
+	case Year:
+		result = bookOne.year > bookTwo.year
+	case Size:
+		result = bookOne.size > bookTwo.size
+	case Rate:
+		result = bookOne.rate > bookTwo.rate
 	}
 
 	return result
@@ -48,21 +93,30 @@ func (cs CompareBook) Compare() bool {
 
 func main() {
 	mybook1 := Book{}
-	mybook1.SetFields(1, "super book", "David", 2020, 1.64, 5.1)
+	mybook1.SetID(1)
+	mybook1.SetTitle("super book")
+	mybook1.SetAuthor("David")
+	mybook1.SetYear(2020)
+	mybook1.SetSize(1.64)
+	mybook1.SetRate(5.1)
 
-	strbook1 := mybook1.ReadFields()
-	fmt.Println(strbook1)
+	fmt.Println(mybook1)
 
 	mybook2 := Book{}
-	mybook2.SetFields(2, "great book", "Nikole", 2019, 2.72, 4.9)
+	mybook2.SetID(2)
+	mybook2.SetTitle("great book")
+	mybook2.SetAuthor("Nikole")
+	mybook2.SetYear(2019)
+	mybook2.SetSize(2.72)
+	mybook2.SetRate(4.9)
 
-	strbook2 := mybook2.ReadFields()
-	fmt.Println(strbook2)
+	fmt.Println(mybook2)
 
-	cs1 := CompareBook{"year", mybook1, mybook2}
-	cs2 := CompareBook{"size", mybook1, mybook2}
-	cs3 := CompareBook{"rate", mybook1, mybook2}
-	fmt.Println(`CompareBook "year":`, cs1.Compare())
-	fmt.Println(`CompareBook "size":`, cs2.Compare())
-	fmt.Println(`CompareBook "rate":`, cs3.Compare())
+	c1 := NewComparator(Year)
+	fmt.Println(c1)
+	c2 := NewComparator(Size)
+	c3 := NewComparator(Rate)
+	fmt.Println(`CompareBook "year":`, c1.Compare(&mybook1, &mybook2))
+	fmt.Println(`CompareBook "size":`, c2.Compare(&mybook1, &mybook2))
+	fmt.Println(`CompareBook "rate":`, c3.Compare(&mybook1, &mybook2))
 }
