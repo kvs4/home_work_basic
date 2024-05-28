@@ -37,17 +37,13 @@ func (r *rectangle) Area() float64 {
 }
 
 func calculateArea(s any) (float64, error) {
-	switch s := s.(type) {
-	case circle:
-		return s.Area(), nil
-	case triangle:
-		return s.Area(), nil
-	case rectangle:
-		return s.Area(), nil
-	default:
+	sh, ok := s.(Shape)
+	if !ok {
 		textError := errors.New("this type of shape isn't available")
 		return 0.0, textError
 	}
+
+	return sh.Area(), nil
 }
 
 func main() {
@@ -56,29 +52,29 @@ func main() {
 		err  error
 	)
 
-	myCircle := circle{5}
+	myCircle := &circle{5}
 	area, err = calculateArea(myCircle)
 	if err != nil {
 		log.Println("error:", err)
-		return
+		// return
 	}
 	fmt.Println("Circle: radius", myCircle.radius)
 	fmt.Println("The area of the circle:", area)
 
-	myRectangle := rectangle{10, 5}
+	myRectangle := &rectangle{10, 5}
 	area, err = calculateArea(myRectangle)
 	if err != nil {
 		log.Println("error:", err)
-		return
+		// return
 	}
 	fmt.Println("Rectangle: width", myRectangle.width, ", height", myRectangle.height)
 	fmt.Println("The area of the rectangle:", area)
 
-	myTriangle := triangle{8, 6}
+	myTriangle := &triangle{8, 6}
 	area, err = calculateArea(myTriangle)
 	if err != nil {
 		log.Println("error:", err)
-		return
+		// return
 	}
 	fmt.Println("Triangle: base", myTriangle.base, ", height", myTriangle.height)
 	fmt.Println("The area of the triangle:", area)
@@ -87,6 +83,6 @@ func main() {
 	_, err = calculateArea(notShape)
 	if err != nil {
 		log.Println("error:", err)
-		return
+		// return
 	}
 }
