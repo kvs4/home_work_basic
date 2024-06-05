@@ -13,7 +13,6 @@ func TestChessboardEmpty(t *testing.T) {
 	got, err := GetStrChessboard(0, 0)
 	require.NoError(t, err)
 	assert.Equal(t, want, got)
-
 }
 
 func TestChessboardPositive(t *testing.T) {
