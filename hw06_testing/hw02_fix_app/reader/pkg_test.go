@@ -3,7 +3,7 @@ package reader
 import (
 	"testing"
 
-	"github.com/kvs4/home_work_basic/hw02_fix_app/types"
+	"github.com/kvs4/home_work_basic/hw06_testing/hw02_fix_app/types"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
