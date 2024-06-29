@@ -18,11 +18,23 @@ type Book struct {
 }
 
 func (b *Book) MarshalJSON() ([]byte, error) {
-	return json.Marshal(b)
+	type Alias Book
+	return json.Marshal(&struct {
+		*Alias
+	}{
+		Alias: (*Alias)(b),
+	})
 }
 
 func (b *Book) UnmarshalJSON(data []byte) error {
-	return json.Unmarshal(data, b)
+	type Alias Book
+	aux := &struct {
+		*Alias
+	}{
+		Alias: (*Alias)(b),
+	}
+
+	return json.Unmarshal(data, &aux)
 }
 
 func SerializeBooksJSON(books []Book) ([]byte, error) {
@@ -31,43 +43,44 @@ func SerializeBooksJSON(books []Book) ([]byte, error) {
 
 func DeserializeBooksJSON(data []byte) ([]Book, error) {
 	var books []Book
-	error := json.Unmarshal(data, &books)
-	return books, error
+	err := json.Unmarshal(data, &books)
+	return books, err
 }
 
-func SerializeBooksProto(books myproto.Books) ([]byte, error) {
-	return proto.Marshal(&books)
+func SerializeBooksProto(books *myproto.Books) ([]byte, error) {
+	return proto.Marshal(books)
 }
 
-func DeserializeBooksProto(data []byte) (myproto.Books, error) {
+func DeserializeBooksProto(data []byte) (*myproto.Books, error) {
 	var booksProto myproto.Books
 	err := proto.Unmarshal(data, &booksProto)
-	return booksProto, err
+	return &booksProto, err
 }
 
 func main() {
-
-	/*book := Book{ID: 3,
-	Title:  "my title3",
-	Author: "my author3",
-	Year:   2020,
-	Size:   float64(4.04),
-	Rate:   float64(2.2)}
-
+	book := Book{
+		ID:     3,
+		Title:  "my title3",
+		Author: "my author3",
+		Year:   2020,
+		Size:   float64(4.04),
+		Rate:   float64(2.2),
+	}
 
 	data, err := book.MarshalJSON()
 	fmt.Println(data, err)
-	*/
 
 	books := []Book{
-		{ID: 1,
+		{
+			ID:     1,
 			Title:  "my title",
 			Author: "my author",
 			Year:   2019,
 			Size:   float64(1.05),
 			Rate:   float64(5.3),
 		},
-		{ID: 2,
+		{
+			ID:     2,
 			Title:  "my title 2",
 			Author: "my author 2",
 			Year:   2018,
@@ -76,9 +89,42 @@ func main() {
 		},
 	}
 
-	data, err := json.Marshal(books) //SerializeBooksJSON(books)
+	data, err = SerializeBooksJSON(books)
 	fmt.Println(data, err)
 
-	//fmt.Println(books)
+	newbooks, err := DeserializeBooksJSON(data)
+	fmt.Println(newbooks, err)
 
+	// -----------------------------------
+	booksProto := getWantedBooksProto1()
+
+	dataProto, err := SerializeBooksProto(&booksProto)
+
+	fmt.Println("This is books Proto:", dataProto, "error:", err)
+
+	gotBooks, _ := DeserializeBooksProto(dataProto)
+
+	fmt.Println("want value:", &booksProto)
+	fmt.Println("got value:", gotBooks)
+}
+
+func getWantedBooksProto1() myproto.Books {
+	book1 := myproto.Book{
+		ID:     1,
+		Title:  "my title",
+		Author: "my author",
+		Year:   2019,
+		Size:   float64(1.05),
+		Rate:   float64(5.3),
+	}
+	book2 := myproto.Book{
+		ID:     2,
+		Title:  "my title 2",
+		Author: "my author 2",
+		Year:   2018,
+		Size:   float64(2.09),
+		Rate:   float64(4.1),
+	}
+
+	return myproto.Books{Books: []*myproto.Book{&book1, &book2}}
 }
