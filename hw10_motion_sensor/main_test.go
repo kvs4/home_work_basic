@@ -11,15 +11,16 @@ func TestSensorDataGenerator(t *testing.T) {
 	dataMotionSensorChan := make(chan int)
 	go SensorDataGenerator(dataMotionSensorChan)
 
-	timer := time.NewTimer(time.Second * 61)
+	timer := time.NewTimer(time.Second * 60)
 
+outerfor:
 	for {
 		select {
 		case <-timer.C:
 			t.Fatal("Test timed out!")
 		case _, ok := <-dataMotionSensorChan:
 			if !ok {
-				return
+				break outerfor
 			}
 		}
 	}

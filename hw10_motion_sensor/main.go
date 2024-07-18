@@ -19,7 +19,7 @@ func main() {
 func SensorDataGenerator(c chan<- int) {
 	defer close(c)
 
-	timer := time.NewTimer(time.Second * 60)
+	timer := time.NewTimer(time.Second * 59)
 	data := 1
 
 outerfor:
