@@ -49,12 +49,12 @@ func TestAnalizeTheLogEmpty(t *testing.T) {
 	assert.Equal(t, wantLogs, gotLogs)
 }
 
-func TestWriteOutputFile(t *testing.T) {
+func TestWriteOutput(t *testing.T) {
 	fileName := "output_test.txt"
 	logs := []string{
 		"a file system error has occurred",
 	}
-	WriteOutputFile(logs, fileName)
+	WriteOutput(logs, fileName)
 
 	file, err := os.Open(fileName)
 	require.NoError(t, err, "Can't open output file \"%s\": %v", fileName, err)

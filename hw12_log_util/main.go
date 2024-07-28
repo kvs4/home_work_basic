@@ -23,7 +23,7 @@ func main() {
 		log.Fatal()
 	}
 	foundLogs := AnalizeTheLog(logs, logsSettings.level)
-	WriteOutputFile(foundLogs, logsSettings.outputFile)
+	WriteOutput(foundLogs, logsSettings.outputFile)
 }
 
 func getSettings() settings {
@@ -61,7 +61,8 @@ func checkFlagAndPullFromConfigFile(flag string, variableEnv string, kindVarEnv 
 		if ok {
 			flag = variableConfEnv
 		} else if kindVarEnv == "LOG_ANALYZER_FILE" {
-			log.Fatalf("The name of the log file is not specified. It must be specified using the -f (or --file) flag, either in the environment variable %s or in the \".env\" configuration file\n", kindVarEnv)
+			log.Fatalf("The name of the log file is not specified. It must be specified using the -f (or --file) flag,"+
+				" either in the environment variable %s or in the \".env\" configuration file\n", kindVarEnv)
 		}
 	} else if flag == "" {
 		flag = variableEnv
@@ -103,7 +104,7 @@ func AnalizeTheLog(logs [][]string, level string) []string {
 	return foundLogs
 }
 
-func WriteOutputFile(foundLogs []string, outputFile string) {
+func WriteOutput(foundLogs []string, outputFile string) {
 	var (
 		file *os.File
 		w    *bufio.Writer
