@@ -28,7 +28,6 @@ func TestMakeGetRequest(t *testing.T) {
 	}
 
 	assert.Equal(t, wantbody, gotbody)
-
 }
 
 func TestMakeGPostRequest(t *testing.T) {
@@ -43,5 +42,4 @@ func TestMakeGPostRequest(t *testing.T) {
 	}
 
 	assert.Equal(t, wantbody, gotbody)
-
 }
