@@ -1,4 +1,4 @@
-package main
+package server
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func main() {
+func Run() {
 	server := gin.Default()
 	v1 := server.Group("/v1")
 

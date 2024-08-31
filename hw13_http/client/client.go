@@ -1,4 +1,4 @@
-package main
+package client
 
 import (
 	"bytes"
@@ -7,25 +7,9 @@ import (
 	"io"
 	"net/http"
 	"os"
-	"strings"
-
-	"github.com/spf13/pflag"
 )
 
-func main() {
-	var serverURL, pathRes string
-	pflag.StringVarP(&serverURL, "url", "u", "", "server URL")
-	pflag.StringVarP(&pathRes, "pathRes", "p", "", "resources address")
-	pflag.Parse()
-
-	var urlB strings.Builder
-	urlB.WriteString(serverURL)
-	urlB.WriteString(pathRes)
-	url := urlB.String() // "http://0.0.0.0:8080/v1/"
-
-	fmt.Println("serverURL =", serverURL)
-	fmt.Println("pathRes = ", pathRes)
-	fmt.Println("URL =", url)
+func Run(url string) {
 
 	// GET
 	bodyGet, statusGet := MakeGetRequest(url)
