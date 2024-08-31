@@ -10,7 +10,6 @@ import (
 )
 
 func Run(url string) {
-
 	// GET
 	bodyGet, statusGet := MakeGetRequest(url)
 	if statusGet != -1 {
@@ -56,7 +55,6 @@ func MakeGPostRequest(url string) (string, int) {
 	}
 
 	respPost, err := http.DefaultClient.Do(req)
-	// respPost, err := http.Post(url, "", bytes.NewReader([]byte(`{"name": "Ivan"}`)))
 	if err != nil {
 		fmt.Println(fmt.Errorf("POST request error: %w", err))
 		os.Exit(1)

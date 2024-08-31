@@ -30,7 +30,3 @@ func Run() {
 
 	server.Run(":8080")
 }
-
-/*func main() {
-	fmt.Println("hi")
-}*/
