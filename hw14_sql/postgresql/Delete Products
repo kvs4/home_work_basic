@@ -1,0 +1,1 @@
+delete from shop."Products" where name = 'apple juice'

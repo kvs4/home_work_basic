@@ -1,0 +1,2 @@
+UPDATE shop."Users" SET email = 'newbob@google.com'
+WHERE id = '29b90488-69c4-4710-8ee5-a59bd504da72';

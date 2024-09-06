@@ -1,0 +1,32 @@
+WITH AvgPriceInOrder AS (
+SELECT 
+	Users.name as user_name, 
+	Users.email as user_email, 
+	--Orders.id as Order_id, 
+	--Orders.order_date, 
+	Orders.total_amount, 
+	--Prod.name as product, 
+	AVG(Prod.price) as average_price
+	FROM shop."Orders" Orders
+	LEFT JOIN shop."Users" Users ON Orders.user_id = Users.id
+	LEFT JOIN shop."OrderProducts" OrderProd ON Orders.id = OrderProd.order_id
+		LEFT JOIN shop."Products" Prod ON OrderProd.product_id = Prod.id
+	--WHERE Users."name" = 'Bob'
+	GROUP BY 
+		user_name, 
+		user_email, 
+		Orders.total_amount 
+		
+	)
+	
+SELECT
+	user_name,
+	user_email, 
+	SUM (total_amount) as sum_amount,
+	AVG(average_price) as average_price
+	
+	FROM AvgPriceInOrder
+GROUP BY 
+		user_name, 
+		user_email
+	;

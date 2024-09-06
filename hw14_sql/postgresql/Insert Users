@@ -1,0 +1,5 @@
+--INSERT INTO Shop."Users" (id, name, email, password)
+--VALUES (gen_random_uuid(), 'Bob', 'bob@google.com', '123')
+
+INSERT INTO Shop."Users" (name, email, password)
+VALUES ('Jack', 'jack@google.com', '456');

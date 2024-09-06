@@ -1,0 +1,2 @@
+SELECT id, name, email, password
+	FROM shop."Users";
