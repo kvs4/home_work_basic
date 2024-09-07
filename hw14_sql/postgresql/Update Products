@@ -1,0 +1,1 @@
+update shop."Products" SET price = 50.20 where name = 'apple juice'

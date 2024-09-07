@@ -1,0 +1,6 @@
+do $$
+	declare orderId uuid = '25160d68-49a6-4599-9a45-b14383ee4a3b';
+begin
+	delete from shop."Orders" where id = orderId;
+	delete from shop."OrderProducts" where order_id = orderId;
+end $$

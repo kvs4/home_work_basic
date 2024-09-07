@@ -1,0 +1,3 @@
+SELECT id, name, price
+	FROM shop."Products"  --WHERE price > 25
+	;
