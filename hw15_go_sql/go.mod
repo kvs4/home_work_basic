@@ -1,8 +1,8 @@
 module github.com/kvs4/home_work_basic/hw15_go_sql
 
-go 1.21
+go 1.20
 
-//toolchain go1.22.2
+toolchain go1.22.2
 
 require (
 	github.com/gin-gonic/gin v1.10.0
