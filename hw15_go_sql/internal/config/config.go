@@ -12,7 +12,6 @@ func Load(path string) error {
 		cfgEnv = path
 	}
 	err := godotenv.Load(cfgEnv)
-
 	if err != nil {
 		return err
 	}

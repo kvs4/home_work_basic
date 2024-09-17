@@ -1,6 +1,6 @@
 module github.com/kvs4/home_work_basic/hw13_http
 
-go 1.20
+go 1.21
 
 require (
 	github.com/gin-gonic/gin v1.10.0

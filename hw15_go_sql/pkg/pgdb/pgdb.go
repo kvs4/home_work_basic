@@ -13,13 +13,14 @@ type Connection struct {
 
 var DB Connection
 
-func New(ctx context.Context, DSN string) error {
-	dbc, err := pgxpool.New(ctx, DSN)
+func New(ctx context.Context, dsn string) error {
+	dbc, err := pgxpool.New(ctx, dsn)
 	if err != nil {
 		return errors.Errorf("failed to connect to DB: %v", err)
 	}
 
-	if err := dbc.Ping(ctx); err != nil {
+	err = dbc.Ping(ctx)
+	if err != nil {
 		return errors.Errorf("failed to ping DB: %v", err)
 	}
 
